@@ -1,0 +1,45 @@
+<configure
+   xmlns="http://namespaces.zope.org/zope"
+   xmlns:i18n="http://namespaces.zope.org/i18n"
+   xmlns:zojax="http://namespaces.zope.org/zojax"
+   xmlns:browser="http://namespaces.zope.org/browser"
+   i18n_domain="zojax.content.actions">
+
+  <include file="cache.zcml" />
+
+ <!-- actions portlet -->
+  <zojax:portlet
+     title="Actions"
+     description="Listing of context actions."
+     name="portlet.actions"
+     class=".portlet.ActionsPortlet" />
+
+  <zojax:pagelet
+     type="portlet.view"
+     template="portlet.pt"
+     for=".interfaces.IActionsPortlet" />
+
+  <!-- context actions -->
+  <zojax:pagelet
+     for="*"
+     type="pagelet"
+     name="context.actions"
+     template="contextactions.pt"
+     class=".contextactions.ContextActions" />
+
+  <!-- action categories -->
+  <include file="categories.zcml" />
+
+  <!-- content actions -->
+  <include file="contentactions.zcml" />
+
+  <!-- styles -->
+  <zojax:resourceinclude
+     name="zojax-content-actions.css"
+     library="zojax" type="stylesheet" filetype="zrt"
+     file="styles.css" />
+
+  <!-- translations -->
+  <i18n:registerTranslations directory="locales" />
+
+</configure>

@@ -1,0 +1,48 @@
+<configure
+   xmlns="http://namespaces.zope.org/zope"
+   xmlns:browser="http://namespaces.zope.org/browser">
+
+  <!-- edit content -->
+  <adapter
+     name="content.edit"
+     provides=".interfaces.IEditContentAction"
+     factory=".contentactions.EditContentAction" />
+
+  <adapter
+     name="zmi_icon"
+     for=".interfaces.IEditContentAction *"
+     factory=".contentactions.ContentActionIcon" />
+
+  <!-- context edit content -->
+  <adapter
+     name="content.edit"
+     provides=".interfaces.IEditContentContextAction"
+     factory=".contentactions.EditContentContextAction" />
+
+  <browser:icon
+     name="zmi_icon"
+     file="icons/edit.gif"
+     for=".interfaces.IEditContentContextAction" />
+
+  <!-- delete content -->
+  <adapter
+     name="content.delete"
+     provides=".interfaces.IDeleteContentAction"
+     factory=".contentactions.DeleteContentAction" />
+
+  <browser:icon
+     name="zmi_icon"
+     file="icons/delete.png"
+     for=".interfaces.IDeleteContentAction" />
+
+  <!-- add content actions -->
+  <adapter
+     name="content.add"
+     factory=".contentactions.AddContentActions" />
+
+  <adapter
+     name="zmi_icon"
+     for=".contentactions.AddContent *"
+     factory=".contentactions.ContentTypeIcon" />
+
+</configure>

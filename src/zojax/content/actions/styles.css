@@ -1,0 +1,39 @@
+/* zrt-cssregistry: */
+
+@media all {
+  
+  .context-actions { 
+    float: right;
+    margin: 0 0 0 0.5em;
+    padding: 0;
+    text-align: right;
+  }
+
+  .context-actions ul {
+    margin: 1px 0 2px 0;
+    padding: 0;
+    display: block;
+  }
+  
+  .context-actions li {
+    display: inline;
+    list-style: none;
+    list-style-image: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .context-actions a {
+    border: none !important;
+    text-decoration: none;
+  }
+
+  .context-actions img { 
+    vertical-align: middle;
+  }
+
+  .portlet-actions .z-portlet-item .z-listing img { 
+    vertical-align: middle;
+  }
+
+}

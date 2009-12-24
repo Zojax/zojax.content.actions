@@ -1,0 +1,11 @@
+<html>
+  <body>
+    <tal:block content="request/principal/id" />
+    <div id="z-portal-statusmessage"
+	 tal:content="structure provider:statusMessage">
+    </div>
+    <tal:block tal:define="context layout/maincontext"
+               tal:content="structure portlet:portlet.actions" />
+    <tal:block tal:content="structure view/render" />
+  </body>
+</html>

@@ -1,0 +1,270 @@
+=============
+Browser tests
+=============
+
+    >>> from zope import interface, component, event
+    >>> from zope.app.component.hooks import setSite
+    >>> from zope.testbrowser.testing import Browser
+   >>> from zojax.content.space.interfaces import ISpace
+    >>> from zojax.content.actions.action import Action
+    >>> from zojax.content.actions.interfaces import IAction, IContextAction
+
+    >>> root = getRootFolder()
+    >>> setSite(root)
+    >>> sm = root.getSiteManager()
+    >>> space = root['space']
+
+    >>> admin = Browser()
+    >>> admin.addHeader("Authorization", "Basic mgr:mgrpw")
+    >>> admin.handleErrors = False
+
+    >>> anon = Browser()
+    >>> anon.handleErrors = False
+
+
+Actions
+-------
+
+actions portlet
+
+    >>> admin.open('http://localhost/space/')
+    >>> print admin.contents
+    <html>
+    ...
+    <div class="z-portlet portlet-actions">
+      <h2 class="z-portlet-header">Actions</h2>
+      <div class="z-portlet-body">
+        <div class="z-portlet-item">
+          <h5 class="z-portlet-item-title">Add content</h5>
+          <ul class="z-listing">
+            <li class="even">
+              <a href="http://localhost/space/+/content.space/">
+                 <img src="..." />
+                 Add Space</a>
+            </li>
+          </ul>
+        </div> <div class="z-portlet-item">
+          <h5 class="z-portlet-item-title">Manage content</h5>
+          <ul class="z-listing">
+            <li class="even">
+              <a href="http://localhost/space/context.html">
+                 <img src="..." />
+                 Edit Space</a>
+            </li> <li class="odd">
+              <a href="http://localhost/space/delete.html">
+                 <img src="..." />
+                 Delete Space</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    ...
+    </html>
+
+
+custom action in default category, we can create 2 types of actions
+action for context, request or for context, request, view
+
+    >>> class IMyAction(IAction):
+    ...     pass
+
+    >>> class MyAction(Action):
+    ...     interface.implements(IMyAction)
+    ...     component.adapts(
+    ...         interface.Interface, interface.Interface, interface.Interface)
+    ...     
+    ...     title = u'My action'
+    ...     weight = 999
+    ...     url = 'myaction.html'
+    ...     contextInterface = ISpace
+
+    >>> component.provideAdapter(MyAction, name='myaction')
+
+    >>> admin.reload()
+    >>> print admin.contents
+    <html>
+    ...
+    <div class="z-portlet portlet-actions">
+      <h2 class="z-portlet-header">Actions</h2>
+      <div class="z-portlet-body">
+        <div class="z-portlet-item">
+          <h5 class="z-portlet-item-title">Add content</h5>
+          <ul class="z-listing">
+            <li class="even">
+              <a href="http://localhost/space/+/content.space/">
+                <img src="..." />
+                Add Space</a>
+            </li>
+          </ul>
+        </div> <div class="z-portlet-item">
+          <h5 class="z-portlet-item-title">Manage content</h5>
+          <ul class="z-listing">
+            <li class="even">
+              <a href="http://localhost/space/context.html">
+                 <img src="..." />
+                 Edit Space</a>
+            </li> <li class="odd">
+              <a href="http://localhost/space/delete.html">
+              <img src="..." />
+              Delete Space</a>
+            </li>
+          </ul>
+        </div> <div class="z-portlet-item">
+          <ul class="z-listing">
+            <li class="even">
+              <a href="myaction.html">
+              My action</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    ...
+    </html>
+
+or in manage content category
+
+    >>> from zojax.content.actions.interfaces import IManageContentCategory
+
+    >>> interface.classImplements(MyAction, IManageContentCategory)
+
+    >>> admin.reload()
+    >>> print admin.contents
+    <html>
+    ...
+    <div class="z-portlet portlet-actions">
+      <h2 class="z-portlet-header">Actions</h2>
+      <div class="z-portlet-body">
+        <div class="z-portlet-item">
+          <h5 class="z-portlet-item-title">Add content</h5>
+          <ul class="z-listing">
+            <li class="even">
+              <a href="http://localhost/space/+/content.space/">
+                 <img src="..." alt="content_space" width="16" height="16" border="0" />
+                 Add Space</a>
+            </li>
+          </ul>
+        </div> <div class="z-portlet-item">
+          <h5 class="z-portlet-item-title">Manage content</h5>
+          <ul class="z-listing">
+            <li class="even">
+              <a href="http://localhost/space/context.html">
+                 <img src="..." alt="ContentSpace" width="16" height="16" border="0" />
+                 Edit Space</a>
+            </li> <li class="odd">
+              <a href="http://localhost/space/delete.html">
+              <img src="..." alt="DeleteContentAction" width="16" height="16" border="0" />
+              Delete Space</a>
+            </li> <li class="even">
+              <a href="myaction.html">
+              My action</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    ...
+    </html>
+
+actions visible is principal has permissions
+
+    >>> anon.open('http://localhost/space/')
+    >>> print anon.contents
+    <html>
+    ...
+    <div class="z-portlet portlet-actions">
+      <h2 class="z-portlet-header">Actions</h2>
+      <div class="z-portlet-body">
+        <div class="z-portlet-item">
+          <h5 class="z-portlet-item-title">Manage content</h5>
+          <ul class="z-listing">
+            <li class="even">
+              <a href="myaction.html">
+              My action</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    ...
+    </html>
+
+
+Context actions
+---------------   
+
+context.actions pagelet
+
+    >>> admin.open('http://localhost/space/listing.html')
+    >>> print admin.contents
+    <html>
+    ...
+    <div class="context-actions">
+      <ul>
+        <li>
+           <a title="Edit" href="http://localhost/space/context.html">
+             <img src="..." />
+           </a>
+        </li>
+      </ul>
+    </div>...
+    ...
+    </html>
+
+custom action
+
+    >>> class IMyContextAction(IContextAction):
+    ...     pass
+
+    >>> class MyContextAction(Action):
+    ...     interface.implements(IMyContextAction)
+    ...     component.adapts(interface.Interface, interface.Interface)
+    ...     
+    ...     title = u'My context action'
+    ...     weight = 999
+    ...     url = 'mycontextaction.html'
+
+    >>> component.provideAdapter(MyContextAction, name='mycontextaction')
+
+update 'content.view' cache tag
+
+    >>> from zojax.content.browser.cache import ContentView
+    >>> ContentView.update(space)
+
+    >>> admin.reload()
+    >>> print admin.contents
+    <html>
+    ...
+    <div class="context-actions">
+      <ul>
+        <li>
+           <a title="Edit" href="http://localhost/space/context.html">
+             <img src="..." />
+           </a>
+        </li> <li>
+           <a title="My context action" href="mycontextaction.html">
+           </a>
+        </li>
+      </ul>
+    </div>...
+    ...
+    </html>
+
+anonymous, edit action is not available
+
+    >>> anon.open('http://localhost/space/listing.html')
+    >>> print anon.contents
+    <html>
+    ...
+    <div class="context-actions">
+    ...<li>
+         <a title="My context action" href="mycontextaction.html">
+         </a>
+        </li>
+      </ul>
+    </div>...
+    ...
+    </html>
+
+    >>> setSite(None)
