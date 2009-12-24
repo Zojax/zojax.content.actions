@@ -1,0 +1,28 @@
+<configure
+   xmlns="http://namespaces.zope.org/zope"
+   xmlns:zcml="http://namespaces.zope.org/zcml">
+
+  <subscriber 
+     handler=".cache.updateActionsTag"
+     for="* zojax.content.permissions.interfaces.IPermissionsUpdatedEvent"
+     zcml:condition="installed zojax.content.permissions" />
+
+  <subscriber
+     handler=".cache.updateActionsTag"
+     for="zojax.principal.roles.interfaces.IRolesPreference
+	  zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+     zcml:condition="installed zojax.principal.roles" />
+
+  <subscriber
+     handler=".cache.updateActionsTag"
+     for="zojax.principal.roles.interfaces.IDefaultPortalRole
+	  zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+     zcml:condition="installed zojax.principal.roles" />
+
+  <subscriber
+     handler=".cache.updateActionsTag"
+     for="zojax.principal.roles.interfaces.IPortalRole
+	  zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+     zcml:condition="installed zojax.principal.roles" />
+
+</configure>

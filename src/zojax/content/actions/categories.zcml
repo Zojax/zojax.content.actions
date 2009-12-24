@@ -1,0 +1,21 @@
+<configure
+   xmlns="http://namespaces.zope.org/zope"
+   i18n_domain="zojax.content.actions">
+
+  <utility
+     name="add"
+     component=".categories.AddContent" />
+
+  <utility
+     name="manage"
+     component=".categories.ManageContent" />
+
+  <utility
+     name="browse"
+     component=".categories.BrowseContent" />
+
+  <utility
+     name="notification"
+     component=".categories.Notification" />
+
+</configure>

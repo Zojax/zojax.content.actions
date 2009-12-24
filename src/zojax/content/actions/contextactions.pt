@@ -1,0 +1,9 @@
+<div class="context-actions" tal:define="actions view/actions">
+  <ul>
+    <li tal:repeat="action actions">
+      <a tal:attributes="title action/title; href action/url">
+	<tal:block content="structure action/@@zmi_icon|nothing" />
+      </a>
+    </li>
+  </ul>
+</div>

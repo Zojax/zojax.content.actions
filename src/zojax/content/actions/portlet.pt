@@ -1,0 +1,18 @@
+<div class="z-portlet portlet-actions" i18n:domain="zojax.content.actions">
+  <h2 class="z-portlet-header" i18n:translate="">Actions</h2>
+  <div class="z-portlet-body">
+    <div class="z-portlet-item" tal:repeat="item context/categories">
+      <h5 class="z-portlet-item-title"
+	  tal:condition="item/category" tal:content="item/category" />
+      <ul class="z-listing">
+        <li tal:repeat="action item/actions"
+	    tal:attributes="class python:repeat['action'].odd() and
+			    'odd' or 'even'">
+	  <a tal:attributes="href action/url" tal:omit-tag="not:action/url">
+	    <tal:block content="structure action/@@zmi_icon|nothing" />
+	    <tal:block content="structure action/title"/></a>
+	</li>
+      </ul>
+    </div>
+  </div>
+</div>
