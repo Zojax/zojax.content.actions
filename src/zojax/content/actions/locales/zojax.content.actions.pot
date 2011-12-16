@@ -1,0 +1,67 @@
+##############################################################################
+#
+# Copyright (c) 2003-2004 Zope Corporation and Contributors.
+# All Rights Reserved.
+#
+# This software is subject to the provisions of the Zope Public License,
+# Version 2.1 (ZPL).  A copy of the ZPL should accompany this distribution.
+# THIS SOFTWARE IS PROVIDED "AS IS" AND ANY AND ALL EXPRESS OR IMPLIED
+# WARRANTIES ARE DISCLAIMED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+# WARRANTIES OF TITLE, MERCHANTABILITY, AGAINST INFRINGEMENT, AND FITNESS
+# FOR A PARTICULAR PURPOSE.
+#
+##############################################################################
+msgid ""
+msgstr ""
+"Project-Id-Version: Development/Unknown\n"
+"POT-Creation-Date: Thu Dec  8 22:32:35 2011\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Zope 3 Developers <zope3-dev@zope.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: zope/app/locales/extract.py\n"
+
+#: src/zojax/content/actions/categories.py:34
+msgid "Add content"
+msgstr ""
+
+#: src/zojax/content/actions/categories.py:38
+msgid "Manage content"
+msgstr ""
+
+#: src/zojax/content/actions/categories.py:42
+msgid "Browse content"
+msgstr ""
+
+#: src/zojax/content/actions/categories.py:46
+msgid "Notifications"
+msgstr ""
+
+#: src/zojax/content/actions/configure.zcml:11
+msgid "Listing of context actions."
+msgstr ""
+
+#: src/zojax/content/actions/configure.zcml:11
+#: src/zojax/content/actions/portlet.pt:2
+msgid "Actions"
+msgstr ""
+
+#: src/zojax/content/actions/contentactions.py:101
+msgid "Delete"
+msgstr ""
+
+#: src/zojax/content/actions/contentactions.py:120
+msgid "Browse"
+msgstr ""
+
+#: src/zojax/content/actions/contentactions.py:136
+msgid "Add"
+msgstr ""
+
+#: src/zojax/content/actions/contentactions.py:78
+#: src/zojax/content/actions/contentactions.py:88
+msgid "Edit"
+msgstr ""
+
