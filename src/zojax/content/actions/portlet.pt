@@ -8,7 +8,10 @@
         <li tal:repeat="action item/actions"
 	    tal:attributes="class python:repeat['action'].odd() and
 			    'odd' or 'even'">
-	  <a tal:attributes="href action/url; target action/target|nothing" tal:omit-tag="not:action/url">
+	  <a tal:attributes="href action/url;
+	                     target action/target|nothing;
+	                     class action/cssclass|nothing"
+	     tal:omit-tag="not:action/url">
 	    <tal:block content="structure action/@@zmi_icon|nothing" />
 	    <tal:block content="structure action/title"/></a>
 	</li>
