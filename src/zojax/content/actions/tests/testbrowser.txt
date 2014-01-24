@@ -31,7 +31,6 @@ actions portlet
     >>> print admin.contents
     <html>
     ...
-    <div class="z-portlet portlet-actions">
       <h2 class="z-portlet-header">Actions</h2>
       <div class="z-portlet-body">
         <div class="z-portlet-item">
@@ -55,10 +54,6 @@ actions portlet
                  <img src="..." />
                  Delete Space</a>
             </li>
-          </ul>
-        </div>
-      </div>
-    </div>
     ...
     </html>
 
@@ -73,7 +68,7 @@ action for context, request or for context, request, view
     ...     interface.implements(IMyAction)
     ...     component.adapts(
     ...         interface.Interface, interface.Interface, interface.Interface)
-    ...     
+    ...
     ...     title = u'My action'
     ...     weight = 999
     ...     url = 'myaction.html'
@@ -85,87 +80,24 @@ action for context, request or for context, request, view
     >>> print admin.contents
     <html>
     ...
-    <div class="z-portlet portlet-actions">
       <h2 class="z-portlet-header">Actions</h2>
-      <div class="z-portlet-body">
-        <div class="z-portlet-item">
-          <h5 class="z-portlet-item-title">Add content</h5>
-          <ul class="z-listing">
-            <li class="even">
-              <a href="http://localhost/space/+/content.space/">
-                <img src="..." />
-                Add Space</a>
-            </li>
-          </ul>
-        </div> <div class="z-portlet-item">
-          <h5 class="z-portlet-item-title">Manage content</h5>
-          <ul class="z-listing">
-            <li class="even">
-              <a href="http://localhost/space/context.html">
-                 <img src="..." />
-                 Edit Space</a>
-            </li> <li class="odd">
-              <a href="http://localhost/space/delete.html">
-              <img src="..." />
-              Delete Space</a>
-            </li>
-          </ul>
-        </div> <div class="z-portlet-item">
-          <ul class="z-listing">
-            <li class="even">
-              <a href="myaction.html">
-              My action</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
+    ...
+    	    Add Space</a>
+    	</li>
+    ...
+    	    Edit Space</a>
+    	</li> <li class="odd">
+    	  <a href="http://localhost/space/delete.html">
+    ...
+    	    Delete Space</a>
+    	</li>
+    ...
+    ...<a href="myaction.html">
+    ...My action</a>
+    	</li>
     ...
     </html>
 
-or in manage content category
-
-    >>> from zojax.content.actions.interfaces import IManageContentCategory
-
-    >>> interface.classImplements(MyAction, IManageContentCategory)
-
-    >>> admin.reload()
-    >>> print admin.contents
-    <html>
-    ...
-    <div class="z-portlet portlet-actions">
-      <h2 class="z-portlet-header">Actions</h2>
-      <div class="z-portlet-body">
-        <div class="z-portlet-item">
-          <h5 class="z-portlet-item-title">Add content</h5>
-          <ul class="z-listing">
-            <li class="even">
-              <a href="http://localhost/space/+/content.space/">
-                 <img src="..." alt="content_space" width="16" height="16" border="0" />
-                 Add Space</a>
-            </li>
-          </ul>
-        </div> <div class="z-portlet-item">
-          <h5 class="z-portlet-item-title">Manage content</h5>
-          <ul class="z-listing">
-            <li class="even">
-              <a href="http://localhost/space/context.html">
-                 <img src="..." alt="ContentSpace" width="16" height="16" border="0" />
-                 Edit Space</a>
-            </li> <li class="odd">
-              <a href="http://localhost/space/delete.html">
-              <img src="..." alt="DeleteContentAction" width="16" height="16" border="0" />
-              Delete Space</a>
-            </li> <li class="even">
-              <a href="myaction.html">
-              My action</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    ...
-    </html>
 
 actions visible is principal has permissions
 
@@ -173,26 +105,15 @@ actions visible is principal has permissions
     >>> print anon.contents
     <html>
     ...
-    <div class="z-portlet portlet-actions">
-      <h2 class="z-portlet-header">Actions</h2>
-      <div class="z-portlet-body">
-        <div class="z-portlet-item">
-          <h5 class="z-portlet-item-title">Manage content</h5>
-          <ul class="z-listing">
-            <li class="even">
-              <a href="myaction.html">
-              My action</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
+    ...<a href="myaction.html">
+    ...My action</a>
+    	</li>
     ...
     </html>
 
 
 Context actions
----------------   
+---------------
 
 context.actions pagelet
 
@@ -212,6 +133,7 @@ context.actions pagelet
     ...
     </html>
 
+
 custom action
 
     >>> class IMyContextAction(IContextAction):
@@ -220,12 +142,14 @@ custom action
     >>> class MyContextAction(Action):
     ...     interface.implements(IMyContextAction)
     ...     component.adapts(interface.Interface, interface.Interface)
-    ...     
+    ...
     ...     title = u'My context action'
     ...     weight = 999
     ...     url = 'mycontextaction.html'
 
     >>> component.provideAdapter(MyContextAction, name='mycontextaction')
+
+
 
 update 'content.view' cache tag
 
@@ -250,6 +174,8 @@ update 'content.view' cache tag
     </div>...
     ...
     </html>
+
+
 
 anonymous, edit action is not available
 
