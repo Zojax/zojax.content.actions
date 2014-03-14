@@ -5,7 +5,7 @@ Browser tests
     >>> from zope import interface, component, event
     >>> from zope.app.component.hooks import setSite
     >>> from zope.testbrowser.testing import Browser
-   >>> from zojax.content.space.interfaces import ISpace
+    >>> from zojax.content.space.interfaces import ISpace
     >>> from zojax.content.actions.action import Action
     >>> from zojax.content.actions.interfaces import IAction, IContextAction
 
@@ -32,28 +32,22 @@ actions portlet
     <html>
     ...
       <h2 class="z-portlet-header">Actions</h2>
-      <div class="z-portlet-body">
-        <div class="z-portlet-item">
+    ...
           <h5 class="z-portlet-item-title">Add content</h5>
-          <ul class="z-listing">
-            <li class="even">
+    ...
               <a href="http://localhost/space/+/content.space/">
                  <img src="..." />
                  Add Space</a>
-            </li>
-          </ul>
-        </div> <div class="z-portlet-item">
+    ...
           <h5 class="z-portlet-item-title">Manage content</h5>
-          <ul class="z-listing">
-            <li class="even">
+    ...
               <a href="http://localhost/space/context.html">
                  <img src="..." />
                  Edit Space</a>
-            </li> <li class="odd">
+    ...
               <a href="http://localhost/space/delete.html">
                  <img src="..." />
                  Delete Space</a>
-            </li>
     ...
     </html>
 
@@ -82,19 +76,71 @@ action for context, request or for context, request, view
     ...
       <h2 class="z-portlet-header">Actions</h2>
     ...
+          <h5 class="z-portlet-item-title">Add content</h5>
+    ...
+              <a href="http://localhost/space/+/content.space/">
+                 <img src="..." />
     	    Add Space</a>
-    	</li>
     ...
+          <h5 class="z-portlet-item-title">Manage content</h5>
+    ...
+              <a href="http://localhost/space/context.html">
+                 <img src="..." />
     	    Edit Space</a>
-    	</li> <li class="odd">
-    	  <a href="http://localhost/space/delete.html">
     ...
+              <a href="http://localhost/space/delete.html">
+                 <img src="..." />
     	    Delete Space</a>
-    	</li>
     ...
     ...<a href="myaction.html">
     ...My action</a>
     	</li>
+    ...
+    </html>
+
+or in manage content category
+
+    >>> from zojax.content.actions.interfaces import IManageContentCategory
+
+    >>> interface.classImplements(MyAction, IManageContentCategory)
+
+    >>> admin.reload()
+    >>> print admin.contents
+    <html>
+    ...
+      <h2 class="z-portlet-header">Actions</h2>
+    ...
+          <h5 class="z-portlet-item-title">Add content</h5>
+    ...
+          <a href="http://localhost/space/+/content.space/">
+            <img src="..." alt="content_space" width="16" height="16" border="0" />
+            Add Space</a>
+    ...
+          <h5 class="z-portlet-item-title">Manage content</h5>
+    ...
+          <a href="http://localhost/space/context.html">
+            <img src="..." alt="ContentSpace" width="16" height="16" border="0" />
+            Edit Space</a>
+    ...
+          <a href="http://localhost/space/delete.html">
+            <img src="..." alt="DeleteContentAction" width="16" height="16" border="0" />
+            Delete Space</a>
+    ...
+          <a href="myaction.html">
+    <BLANKLINE>
+            My action</a>
+    ...
+          <h5 class="z-portlet-item-title">Browse content</h5>
+    ...
+          <a href="http://localhost/space/browse-documents.html">
+            <img src="..." alt="BrowseDocumentsAction" width="16" height="16" border="0" />
+            Browse documents</a>
+    ...
+          <h5 class="z-portlet-item-title">Notifications</h5>
+    ...
+          <a href="http://localhost/space/@@feeds/">
+            <img src="..." alt="ViewFeedsAction" width="16" height="16" border="0" />
+            Subscribe to Feeds</a>
     ...
     </html>
 
@@ -105,9 +151,12 @@ actions visible is principal has permissions
     >>> print anon.contents
     <html>
     ...
-    ...<a href="myaction.html">
-    ...My action</a>
-    	</li>
+      <h2 class="z-portlet-header">Actions</h2>
+    ...
+          <h5 class="z-portlet-item-title">Manage content</h5>
+    ...
+              <a href="myaction.html">
+              My action</a>
     ...
     </html>
 
